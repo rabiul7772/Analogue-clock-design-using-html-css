@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #222;
+}
+body::before {
+  /* to provide background style before body used pseudo element before */
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* margin shorthand */
+  background: linear-gradient(#08ff12, #0791ff);
+  z-index: 1;
+  pointer-events: none;
+  /* The pointer-events property defines whether or not an element reacts to pointer events. */
+  mix-blend-mode: multiply;
+  /* The mix-blend-mode property specifies how an element's content should blend with its direct parent background. */
+}
+
+.circle {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px #fff5, 0 0 0 20px #333, 0 0 0 22px #fff, 0 0 50px #fff,
+    0 0 450px #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* to centre needles */
+}
+
+.circle::before {
+  position: absolute;
+  content: '';
+  width: 2px;
+  height: 170px;
+  border-radius: 2px;
+  background: linear-gradient(0deg, transparent, #fff);
+  transform-origin: bottom;
+  animation: animate_needles 20s steps(60) infinite;
+}
+
+.circle::after {
+  position: absolute;
+  content: '';
+  width: 4px;
+  height: 130px;
+  border-radius: 2px;
+  background: linear-gradient(0deg, transparent, #fff);
+  transform-origin: bottom;
+  animation: animate_needles 120s steps(60) infinite;
+}
+
+@keyframes animate_needles {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+    /*  transform: translate(-50%, -50%) is required is because you want the center of the element to line up with the center of its parent */
+  }
+
+  100% {
+    transform: translate(50%, -50%) rotate(360deg);
+  }
+}
+ul li {
+  list-style: none;
+  position: absolute;
+  top: 10px;
+  transform-origin: 0 240px;
+  /* as container width and height is 500px and border radius is 50% so circle of the radius is 250px and the li origin is transform 240px and li elements position from top :10px  */
+  transform: rotate(calc(30deg * var(--i)));
+  /* every li element will be rotate 30deg*i and 30*12=360deg */
+  font-size: 2.5em;
+  font-weight: bold;
+  font-family: 'Quicksand', sans-serif;
+}
+ul li span {
+  display: inline-block;
+  /* display inline block is used to provide custom style in span elements */
+  color: #fff;
+  transform: rotate(calc(-30deg * var(--i)));
+  /* as every li element rotated +30 deg before that's why -30deg* var(--i) is used in span element to straight the number */
+  text-shadow: 0 0 15px #fff, 0 0 35px #fff, 0 0 75px #fff, 0 0 150px #fff;
+}
